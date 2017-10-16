@@ -76,7 +76,9 @@ public class PageObjectTest {
         LOGGER.info("" + c);
         LOGGER.info("" + cInside);
         LOGGER.info("" + cComm);
+        equalCheck = (c == cInside) & (cInside == cComm);
 
+        Assert.assertTrue("Число комментариев разное!", equalCheck == true);
         LOGGER.info("Test is successful");
         baseFunctions.driverQuit();
     }
