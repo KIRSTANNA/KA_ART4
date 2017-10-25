@@ -18,7 +18,7 @@ import java.util.List;
 public class BaseFunctions {
     WebDriver driver;
     ArticleHelper articleHelper;
-  //  private static final String FIREFOX_DRIVER_PATH = "c:/geckodriver.exe";
+    //  private static final String FIREFOX_DRIVER_PATH = "c:/geckodriver.exe";
 
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(BaseFunctions.class);
     private static final String CHROME_DRIVER_PATH = "C:\\Users\\JK\\chromedriver_win32\\chromedriver.exe";
@@ -46,19 +46,17 @@ public class BaseFunctions {
 
     public WebElement getElement(By locator) {
         LOGGER.info("Getting element");
-        WebDriverWait wait = new WebDriverWait (driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return element;
     }
 
     public void clickElement(By locator) {
         LOGGER.info("Click element");
-        WebDriverWait wait = new WebDriverWait (driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, 30);
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
         element.click();
     }
-
-    // for wrappers:
 
     /*
      * Method is waiting for element to be added in DOM
@@ -84,5 +82,5 @@ public class BaseFunctions {
         return driver.findElements(element);
     }
 
-    }
+}
 

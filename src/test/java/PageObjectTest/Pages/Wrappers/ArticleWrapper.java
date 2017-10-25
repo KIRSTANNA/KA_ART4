@@ -7,7 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class ArticleWrapper {
+
     private final BaseFunctions baseFunctions;
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(BaseFunctions.class);
     private final WebElement element;
 
     private static final By TITLE = By.tagName("a");
@@ -28,5 +30,11 @@ public class ArticleWrapper {
 
     public void clickOnTitle() {
         element.click();
+    }
+
+    public void clickOnComm() {
+        if (element.findElements(TITLE).size()>1)
+        element.findElements(TITLE).get(1).click();
+        else LOGGER.info("Комментариев нет");
     }
 }

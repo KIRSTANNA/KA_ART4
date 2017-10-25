@@ -25,8 +25,6 @@ public class HomePage {
     private static final By TITLE = By.xpath("//h3[@class='top2012-title']/a");
     private static final By COMMENT_COUNT = By.xpath("//h3[@class='top2012-title']/a[@class='comment-count']");
 
-    private static final By ARTICLE_ITEM = ARTICLE;
-
     public HomePage(BaseFunctions bs) {
         this.baseFunctions = bs;
         baseFunctions.waitDisplayElement(TOPARTICLES, WAIT_MILL);
@@ -64,7 +62,46 @@ public class HomePage {
 
     // Next part is for wrappers
 
+    private List<ArticleWrapper> getAllArticles() {
+        List<WebElement> articles = baseFunctions.findElements(ARTICLE);
+        List<ArticleWrapper> articleWrappers = new ArrayList<>();
 
+        Iterables.addAll(articleWrappers,
+                articles.stream()
+                        .map(webElement -> new ArticleWrapper(baseFunctions, webElement))
+                        .collect(Collectors.toList()));
+
+        return articleWrappers;
+    }
+
+    private ArticleWrapper getArticleByTitle(String name) {
+        Optional<ArticleWrapper> wrapper = Iterables.tryFind(getAllArticles(),
+                articleWrapper -> name.contains(articleWrapper.getArticleTitle()));
+        return wrapper.isPresent() ? wrapper.get() : null;
+    }
+
+    public ArticlePage openArticleByTitle(String articleName) {
+        ArticleWrapper forClick = getArticleByTitle(articleName);
+        if (forClick==null) LOGGER.info("Такой статьи нет!");
+        else getArticleByTitle(articleName).clickOnTitle();
+        return new ArticlePage(baseFunctions);
+    }
+
+    public int CommentsCountByTitle(String articleName) {
+        int c=0;
+        ArticleWrapper forClick = getArticleByTitle(articleName);
+        if (forClick==null) LOGGER.info("Такой статьи нет!");
+        else {
+            c = articleHelper.parseCount(getArticleByTitle(articleName).getArticleComm());}
+        return c;
+    }
+
+    public CommentsPage openCommentsByTitle(String articleName) {
+        ArticleWrapper forClick = getArticleByTitle(articleName);
+        if (forClick == null) LOGGER.info("Такой статьи нет!");
+        else getArticleByTitle(articleName).clickOnComm();
+        return new CommentsPage(baseFunctions);
+    }
  /*   *//**
      * Method collects all top articles items
      *
@@ -175,28 +212,5 @@ public class HomePage {
         return new CommentsPage(baseFunctions);
     }
 */
-    private List<ArticleWrapper> getAllArticles() {
-        List<WebElement> articles = baseFunctions.findElements(ARTICLE_ITEM);
-        List<ArticleWrapper> articleWrappers = new ArrayList<>();
 
-        Iterables.addAll(articleWrappers,
-                articles.stream()
-                        .map(webElement -> new ArticleWrapper(baseFunctions, webElement))
-                        .collect(Collectors.toList()));
-
-        return articleWrappers;
-    }
-
-    private ArticleWrapper getArticleByTitle(String name) {
-        Optional<ArticleWrapper> wrapper = Iterables.tryFind(getAllArticles(),
-                articleWrapper -> name.contains(articleWrapper.getArticleTitle()));
-        return wrapper.isPresent() ? wrapper.get() : null;
-    }
-
-    public ArticlePage openArticleByTitle(String articleName) {
-        ArticleWrapper forClick = getArticleByTitle(articleName);
-        if (forClick==null) LOGGER.info("Такой статьи нет!");
-        else getArticleByTitle(articleName).clickOnTitle();
-        return new ArticlePage(baseFunctions);
-    }
 }
