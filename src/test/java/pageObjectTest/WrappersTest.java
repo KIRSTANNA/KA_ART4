@@ -90,8 +90,8 @@ public class WrappersTest {
         LOGGER.info("" + c);
         LOGGER.info("" + cInside);
         LOGGER.info("" + cComm);
-        Assert.assertEquals("Number of comments  differ!", c, cInside);
-        Assert.assertEquals("Number of comments  differ!", cInside, cComm);
+        Assert.assertEquals("Number of comments are differ!", c, cInside);
+        Assert.assertEquals("Number of comments are differ!", cInside, cComm);
         LOGGER.info("Test is successful");
         commonFunctions.driverQuit();
 
