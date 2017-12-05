@@ -1,4 +1,4 @@
-package Homework9_09_with_PageObject.Pages;
+package pageObjectTest.pages;
 
 import org.apache.logging.log4j.LogManager;
 
@@ -10,8 +10,14 @@ public class ArticleHelper {
         this.baseFunctions = bs;
     }
 
+    /**
+     * Method deletes braces from informations about number of comments
+     *
+     * @param countText String informations about number of comments
+     * @return int comments number
+     */
     public int parseCount(String countText){
-        LOGGER.info("Comment's count, excluding braces ");
+        LOGGER.info("Comment's count, excluding braces");
         if (countText.contains("(")) {
             countText = countText.substring(countText.indexOf('(') + 1, countText.indexOf(')'));
         } else countText = "0";
