@@ -2,7 +2,7 @@
 This is repository of Anna Kirsteina's programms, 
 which includes samples of programs, which were designed as QA2 course practice tasks. You can see short description below:      
 
-https://github.com/KIRSTANN/AKA_ART4/src/test/java/homework9_09_with_PageObject/Homework9_09_with_PageObject.java
+https://github.com/KIRSTANNA/KA_ART4/src/test/java/homework9_09_with_PageObject/Homework9_09_with_PageObject.java
 /*
 The program checks first 5 articles on the web-site rus.delfi.lv.
 It verifies if article's title and number of comments are equivalent
